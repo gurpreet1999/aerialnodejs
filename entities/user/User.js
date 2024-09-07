@@ -20,9 +20,23 @@ const UserSchema = new EntitySchema({
       type: 'timestamp',
       default: () => 'CURRENT_TIMESTAMP',
     },
-   
   },
   relations: {
+    roles: {
+      type: 'many-to-many',
+      target: 'Role',
+      joinTable: {
+        name: 'user_roles', // Custom join table name
+        joinColumn: {
+          name: 'user_id',
+          referencedColumnName: 'id',
+        },
+        inverseJoinColumn: {
+          name: 'role_id',
+          referencedColumnName: 'id',
+        },
+      },
+    },
     languages: {
       type: 'many-to-many',
       target: 'Language',
@@ -39,30 +53,20 @@ const UserSchema = new EntitySchema({
         },
       },
     },
-    
-    role: {
-      type: 'many-to-one',
-      target: 'Role',
-      
-      joinColumn: {
-        name: 'roleId',
-      },
-      onDelete: 'SET NULL',
+    customer: {
+      type: 'one-to-one',
+      target: 'Customer',
+      cascade: true,
+      inverseSide: 'user',
     },
     partner: {
       type: 'one-to-one',
       target: 'Partner',
-      nullable: true,
-      mappedBy: 'user',
+      cascade: true,
+      inverseSide: 'user',
     },
-    customer: {
-      type: 'one-to-one',
-      target: 'Customer',
-      nullable: true,
-      mappedBy: 'user',
-    },
-  }
 
+  },
 });
 
 const RoleSchema = new EntitySchema({
@@ -76,18 +80,19 @@ const RoleSchema = new EntitySchema({
     },
     role_type: {
       type: 'enum',
-      enum: ['Partner', 'Customer'],
+      enum: ['Partner', 'Customer', 'Seller'], // Add other roles as needed
       nullable: false,
     },
   },
   relations: {
     users: {
-      type: 'one-to-many',
+      type: 'many-to-many',
       target: 'User',
-      mappedBy: 'role',
+      mappedBy: 'roles',
     },
   },
 });
+
 
 
 const LanguageSchema = new EntitySchema({

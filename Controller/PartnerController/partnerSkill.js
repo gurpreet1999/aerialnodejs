@@ -2,7 +2,8 @@ const mysql = require("mysql2/promise");
 const pool = require('../../pool');
 
 
-
+const { getRepository } = require('typeorm');
+const {PartnerEquipmentsSchema,PartnerMediaSchema} = require('../entities/partner/partnerDetail/PartnerDetail.js'); // Adjust path as necessary
 
 
 const getDefaultSkills = async (req,res) => {

@@ -61,6 +61,7 @@ relations: {
     },
     onDelete: 'CASCADE',
   },
+ 
 },
 });
 

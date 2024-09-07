@@ -1,63 +1,6 @@
 const { EntitySchema } = require('typeorm');
 
 
-// const UserSchema = new EntitySchema({
-//   name: 'User',
-//   tableName: 'users',
-//   columns: {
-//     id: {
-//       type: 'bigint',
-//       primary: true,
-//       generated: true,
-//     },
-//     emailId: {
-//       type: 'varchar',
-//       length: 255,
-//       unique: true,
-//       nullable: false,
-//     },
-//     created_at: {
-//       type: 'timestamp',
-//       default: () => 'CURRENT_TIMESTAMP',
-//     },
-//   },
-//   relations: {
-//     role: {
-//       type: 'many-to-one',
-//       target: 'Role',
-//       joinColumn: {
-//         name: 'roleId',
-//       },
-//       onDelete: 'SET NULL',
-//     },
-    
-//   },
-// });
-
-// const RoleSchema = new EntitySchema({
-//   name: 'Role',
-//   tableName: 'roles',
-//   columns: {
-//     id: {
-//       type: 'int',
-//       primary: true,
-//       generated: true,
-//     },
-//     role_type: {
-//       type: 'enum',
-//       enum: ['Partner', 'Customer'],
-//       nullable: false,
-//     },
-//   },
-//   relations: {
-//     users: {
-//       type: 'one-to-many',
-//       target: 'User',
-//       mappedBy: 'role',
-//     },
-//   },
-// });
-
 
 
 
@@ -132,7 +75,7 @@ const PartnerSchema = new EntitySchema({
     socialDetails: {
       type: 'one-to-one',
       target: 'PartnerSocialDetails',
-      mappedBy: 'partner',  // Reference to the partner in social details
+      mappedBy: 'partner', 
     },
     services: {
       type: 'one-to-many',
@@ -279,7 +222,7 @@ const PartnerSocialDetailsSchema = new EntitySchema({
     },
     partnerId: {
       type: 'int',
-      unique: true,  // Ensure only one social detail per partner
+      unique: true,  
       nullable: false,
     },
     facebook_link: {
@@ -645,7 +588,7 @@ const PartnerEquipmentsSchema = new EntitySchema({
       joinColumn: {
         name: 'partnerId',
       },
-      onDelete: 'CASCADE', // Optional: Define behavior on user deletion
+      onDelete: 'CASCADE', 
     },
     equipmentType: {
       type: 'many-to-one',
@@ -653,7 +596,7 @@ const PartnerEquipmentsSchema = new EntitySchema({
       joinColumn: {
         name: 'equipment_type_id',
       },
-      onDelete: 'CASCADE', // Optional: Define behavior on equipment type deletion
+      onDelete: 'CASCADE', 
     },
   },
 });
@@ -716,7 +659,7 @@ const PartnerCertificatesSchema = new EntitySchema({
     },
     certificate_type_id: {
       type: 'int',
-      nullable: true, // Make this column nullable
+      nullable: true, 
     },
     certificate_number: {
       type: 'text',
@@ -1136,7 +1079,7 @@ const PartnerMediaSchema = new EntitySchema({
       onUpdate: 'CURRENT_TIMESTAMP',
     },
   },
-  // No direct relations since it's a polymorphic association
+ 
 });
 
 
@@ -1159,10 +1102,10 @@ module.exports = {
   PartnerLocationSchema,
   PartnerMediaSchema,
   PartnerBusinessSchema,
-  // UserSchema,
-  // RoleSchema 
-  PartnerServiceFaqsSchema
-
+  PartnerShowreelSchema,
+  PartnerServiceFaqsSchema,
+  PartnerDroneSchema,
+  PartnerDroneTypeSchema
 
 
 };
