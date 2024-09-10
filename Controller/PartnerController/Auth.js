@@ -1,16 +1,8 @@
 const jwt = require("jsonwebtoken");
 const sendToken = require("../../utils/jwtToken");
-const mysql = require("mysql2/promise"); // Import MySQL library
-const pool = require('../../pool');
 
-const dbConfig = {
-  host: process.env.SQL_HOST,
-  user: process.env.SQL_USER,
-  password: process.env.SQL_PASSWORD,
-  database: process.env.SQL_DATABASE,
-};
 
-console.log(dbConfig);
+
 
 const generateTokenAndLogin = async (userData, res) => {
   const { user_id, partner_role} = userData;

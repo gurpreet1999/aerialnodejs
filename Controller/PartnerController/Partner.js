@@ -4,6 +4,11 @@
 
 
 
+const UpdatePartnerDetail=async(req,res)=>{
+
+}
+
+
 
 
 

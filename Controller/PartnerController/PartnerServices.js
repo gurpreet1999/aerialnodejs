@@ -4,7 +4,7 @@
 
 const { getRepository } = require('typeorm');
 
-const {PartnerSchema,PartnerServicesSchema,PartnerServicePackagesSchema,PartnerServiceFaqsSchema,PartnerMediaSchema}=require("../../entities/partner/partner.js")
+const {PartnerServicesSchema,PartnerServicePackagesSchema,PartnerServiceFaqsSchema,PartnerMediaSchema}=require("../../entities/partner/partner.js")
 
 
 
