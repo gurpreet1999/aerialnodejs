@@ -1,5 +1,5 @@
 const { getRepository } = require('typeorm');
-
+const {PartnerResumeSchema,PartnerResumeExperienceSchema}=require("../../entities/partner/partner.js")
 
 
 const addExperienceToResume = async (req, res) => {
@@ -68,8 +68,7 @@ const updateExperience = async (req, res) => {
   }
 };
 
-const { getRepository } = require('typeorm');
-const PartnerResumeExperienceSchema = require('../entities/PartnerResumeExperienceSchema'); 
+
 
 
 const deleteExperience = async (req, res) => {
@@ -98,4 +97,6 @@ const deleteExperience = async (req, res) => {
 
 module.exports = {
   addExperienceToResume,
+  updateExperience,
+   deleteExperience  
 };
