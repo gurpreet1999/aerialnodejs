@@ -169,6 +169,7 @@ const PartnerBusinessSchema = new EntitySchema({
   },
 });
 
+
 const SkillsSchema = new EntitySchema({
   name: 'Skills',
   tableName: 'skills',
@@ -292,10 +293,7 @@ const PartnerServicesSchema = new EntitySchema({
       nullable: true,
     },
  
-    service_media_id: {
-      type: 'int',
-      nullable: true,
-    },
+  
     service_media_youtube_link: {
       type: 'varchar',
       nullable: true,
@@ -326,10 +324,7 @@ const PartnerServicesSchema = new EntitySchema({
       default: () => 'CURRENT_TIMESTAMP',
       onUpdate: 'CURRENT_TIMESTAMP',
     },
-    partnerId: {
-      type: 'int',
-      nullable: false,
-    },
+   
   },
   relations: {
     partner: {
@@ -538,7 +533,7 @@ const PartnerEquipmentsSchema = new EntitySchema({
       primary: true,
       generated: true,
     },
-    user_id: {
+    partnerId: {
       type: 'int',
       nullable: false,
     },
