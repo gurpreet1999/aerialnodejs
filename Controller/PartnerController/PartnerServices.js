@@ -12,11 +12,37 @@ const {PartnerSchema,PartnerServicesSchema,PartnerServicePackagesSchema,PartnerS
 
 
 
-const addService=async(req,res)=>{
+const addService = async (req, res) => {
+  const partnerId = parseInt(req.params.partnerId, 10);
+  const {
+    service_title,
+    category,
+    sub_category,
+    service_keyword,
+    service_deliverables,
+    service_media_id,
+    service_media_youtube_link,
+    service_description,
+    service_location,
+    service_faq,
+    verification_status,
+    verification_notes
+  } = req.body;
 
+  try {
+    const partnerRepo = getRepository(PartnerSchema);
+    const serviceRepo = getRepository(PartnerServicesSchema);
+    const mediaRepo = getRepository(PartnerMediaSchema); // Added media repository
 
-    const partnerId = parseInt(req.params.partnerId, 10); 
-    const {
+    // Check if the partner exists
+    const partner = await partnerRepo.findOne({ where: { id: partnerId } });
+    if (!partner) {
+      return res.status(404).json({ message: 'Partner not found' });
+    }
+
+    // Create and save the new service
+    const newService = serviceRepo.create({
+      partner,
       service_title,
       category,
       sub_category,
@@ -29,47 +55,43 @@ const addService=async(req,res)=>{
       service_faq,
       verification_status,
       verification_notes
-    } = req.body;
-  
-    try {
-      const partnerRepo = getRepository(PartnerSchema);
-      const serviceRepo = getRepository(PartnerServicesSchema);
-  
-    
-      const partner = await partnerRepo.findOne({where:{ id: partnerId }});
-  
-      if (!partner) {
-        return res.status(404).json({ message: 'Partner not found' });
+    });
+
+    const savedService = await serviceRepo.save(newService);
+
+    // Handle associated media if provided
+    if (service_media_id || service_media_youtube_link) {
+      const mediaEntries = [];
+
+      if (service_media_id) {
+        mediaEntries.push({
+          media_type: 'photo',
+          media_url: service_media_id,
+          category_type: 'Service',
+          category_id: savedService.id
+        });
       }
-  
-    
-      const newService = serviceRepo.create({
-        partner,
-        service_title,
-        category,
-        sub_category,
-        service_keyword,
-        service_deliverables,
-      
-        service_media_id,
-        service_media_youtube_link,
-        service_description,
-        service_location,
-        service_faq,
-        verification_status,
-        verification_notes
-      });
-  
- 
-      await serviceRepo.save(newService);
-  
-      res.status(201).json({ message: 'Service created successfully', service: newService });
-    } catch (error) {
-      console.error('Error creating service:', error);
-      res.status(500).json({ message: 'Internal server error' });
+
+      if (service_media_youtube_link) {
+        mediaEntries.push({
+          media_type: 'video',
+          media_url: service_media_youtube_link,
+          category_type: 'Service',
+          category_id: savedService.id
+        });
+      }
+
+      if (mediaEntries.length > 0) {
+        await mediaRepo.save(mediaEntries);
+      }
     }
 
-}
+    res.status(201).json({ message: 'Service created successfully', service: savedService });
+  } catch (error) {
+    console.error('Error creating service:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
 
 
 const addPackage=async(req,res)=>{
