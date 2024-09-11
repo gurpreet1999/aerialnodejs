@@ -7,10 +7,10 @@ const serviceRoute = require("./PartnerService");
 const showreelRoute = require("./PartnerShowreel");
 const droneRoute = require("./PartnerDrone");
 const PartnerRoute = require("./Partner");
-const flyingspotRoute = require("./Flyingspot");
+
 const skillRoute = require("./partnerSkills");
 const rolesRoute = require("./partnerRole");
-const experienceRoute = require("./partnerExperience");
+const partnerResumeRoute = require("./partnerResume");
 const partnerProfileRoute = require('./partnerProfile');
 const partnerPublicProfileRoute = require('./partnerPublicProfile');
 // const uploadMedia = require('./uploadMedia')
@@ -29,14 +29,14 @@ router.use(
   uploadMediaRoute
 );
 
-router.use(
-  `${baseRoute}/flyingspot`,
-  (req, res, next) => {
-    req.locals = { partnerId: req.params.partnerId };
-    next();
-  },
-  flyingspotRoute
-);
+// router.use(
+//   `${baseRoute}/flyingspot`,
+//   (req, res, next) => {
+//     req.locals = { partnerId: req.params.partnerId };
+//     next();
+//   },
+//   flyingspotRoute
+// );
 
 router.use(
   "/",
@@ -125,12 +125,12 @@ router.use(
 );
 
 router.use(
-  `${baseRoute}/experience`,isAuthenticatedUser,
+  `${baseRoute}/resume`,isAuthenticatedUser,
   (req, res, next) => {
     req.locals = { partnerId: req.params.partnerId };
     next();
   },
-  experienceRoute
+  partnerResumeRoute
 );
 
 // router.use(
