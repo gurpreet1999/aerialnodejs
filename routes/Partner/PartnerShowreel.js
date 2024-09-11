@@ -3,11 +3,11 @@ const router = express.Router();
 const showreelController = require('../../Controller/PartnerController/PartnerShowReel');
 
 
-router.get("/", showreelController.GetAllShowreels)
-router.post("/", showreelController.AddShowreel)
-router.get("/:showreelId", showreelController.GetSpecificShowreel)
-router.put("/:showreelId", showreelController.UpdateShowreel)
-router.delete("/:showreelId", showreelController.DeleteShowreel)
+// router.get("/", showreelController.)
+router.post("/", showreelController.addShowreel)
+// router.get("/:showreelId", showreelController.)
+router.put("/:showreelId", showreelController.updateShowreel)
+router.delete("/:showreelId", showreelController.deleteShowreel)
 
 
 

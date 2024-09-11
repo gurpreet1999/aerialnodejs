@@ -4,10 +4,10 @@ const router = express.Router();
 const partnerController = require('../../Controller/PartnerController/partnerSkill');
 
 // Get all Skills
-router.get('/skilllist', partnerController.getDefaultSkills)
-router.get("/", partnerController.GetAllSkillsForUser);
+
+router.get("/", partnerController.getAllSkillsOfPartner);
 
 // Update/Add Skills
-router.put("/", partnerController.UpdatePartnerSkill);
+router.put("/", partnerController.addOrUpdateSkillsForPartner);
 
 module.exports = router;
